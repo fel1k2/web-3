@@ -1,11 +1,11 @@
-from fastapi import Form, File, UploadFile
+from fastapi import Form, File, UploadFile, Depends, HTTPException
 import os
 from dotenv import load_dotenv
 from databases import Database
 from models import books
 from sqlalchemy import select, insert
-from fastapi import HTTPException
 from starlette.responses import FileResponse
+from utils.token import validate_token_and_role
 
 load_dotenv()
 upload_folder = os.getenv("UPLOAD_FOLDER")
@@ -39,6 +39,7 @@ async def upload_book(
     
 async def get_book(book_id: int,
                    db: Database,
+                   user = Depends(validate_token_and_role(["user", "admin", "aproved_user"])) 
                    ):
     query = books.select().where(books.c.id == book_id)
     book = await db.fetch_one(query=query)
@@ -46,7 +47,7 @@ async def get_book(book_id: int,
     if not book:
         raise HTTPException(status_code=404, detail="Book not found")
     
-    download_link = f'/books/dowload/{book_id}'
+    download_link = f'/books/download/{book_id}'
     
     return {
         "title": book.title,
@@ -57,6 +58,7 @@ async def get_book(book_id: int,
     
 async def download_book(book_id: int,
                         db: Database,
+                        user = Depends(validate_token_and_role(["user", "admin", "aproved_user"])) 
                         ):
     query = books.select().where(books.c.id == book_id)
     book = await db.fetch_one(query=query)
@@ -73,6 +75,7 @@ async def download_book(book_id: int,
 
 async def delete_book(book_id: int,
                       db: Database,
+                      user = Depends(validate_token_and_role(["admin"]))
                       ):
     query = books.select().where(books.c.id == book_id)
     book = await db.fetch_one(query=query)
@@ -98,6 +101,7 @@ async def update_book(book_id: int,
                       title = Form(...),
                       author = Form(...),
                       description = Form(...),
+                      user = Depends(validate_token_and_role(["admin"]))
                       ):
     query = books.select().where(books.c.id == book_id)
     existing_book = await db.fetch_one(query=query)

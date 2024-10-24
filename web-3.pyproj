@@ -4,13 +4,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>bc1d4341-39c2-42d8-87a2-ef0fe3892901</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>web_3.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>web-3</Name>
     <RootNamespace>web-3</RootNamespace>
+    <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +22,35 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="web_3.py" />
+    <Compile Include="database\__init__.py" />
+    <Compile Include="handlers\books_handler.py" />
+    <Compile Include="handlers\users_handler.py" />
+    <Compile Include="main.py" />
+    <Compile Include="models\Books.py" />
+    <Compile Include="models\Reviews.py" />
+    <Compile Include="models\Users.py" />
+    <Compile Include="models\__init__.py" />
+    <Compile Include="schemas\user.py" />
+    <Compile Include="utils\password.py" />
+    <Compile Include="utils\token.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env\">
+      <Id>env</Id>
+      <Version>3.9</Version>
+      <Description>env (Python 3.9 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="database\" />
+    <Folder Include="handlers\" />
+    <Folder Include="models\" />
+    <Folder Include="utils\" />
+    <Folder Include="schemas\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

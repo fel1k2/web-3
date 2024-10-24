@@ -4,7 +4,7 @@ from utils.password import hash_password, verify_password
 from models import users
 from databases import Database
 from schemas.user import UserCreate, UserUpdate, UserAuthorize
-from models.Users import UserRole
+from models.Users import UserRole, users
 from utils.token import create_access_token
 
 async def create_user(user: UserCreate, db: Database, role: UserRole):
