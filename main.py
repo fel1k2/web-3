@@ -27,11 +27,11 @@ async def read_users():
 async def create_user(user: UserCreate, role: UserRole):
     return await users_handler.create_user(user, database, role)
 ###
-@app.delete("/users/")
+@app.delete("/users/", tags=["Users"])
 async def delete_user(email: str):
     return await users_handler.delete_user(email, database)
 ###
-@app.put("/users/")
+@app.put("/users/", tags=["Users"])
 async def update_user(user: UserUpdate):
     return await users_handler.update_user(user, database)
 
