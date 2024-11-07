@@ -24,12 +24,14 @@
   <ItemGroup>
     <Compile Include="database\__init__.py" />
     <Compile Include="handlers\books_handler.py" />
+    <Compile Include="handlers\reviews_handler.py" />
     <Compile Include="handlers\users_handler.py" />
     <Compile Include="main.py" />
     <Compile Include="models\Books.py" />
     <Compile Include="models\Reviews.py" />
     <Compile Include="models\Users.py" />
     <Compile Include="models\__init__.py" />
+    <Compile Include="schemas\review.py" />
     <Compile Include="schemas\user.py" />
     <Compile Include="utils\password.py" />
     <Compile Include="utils\token.py" />
@@ -49,8 +51,12 @@
     <Folder Include="database\" />
     <Folder Include="handlers\" />
     <Folder Include="models\" />
+    <Folder Include="uploaded_books\" />
     <Folder Include="utils\" />
     <Folder Include="schemas\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="uploaded_books\book.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

@@ -60,7 +60,7 @@ async def authorize_user(user: UserAuthorize, db: Database):
         raise HTTPException(status_code=400, detail="User not found")
     
     if (verify_password(user.password,existing_user.hashed_password)):
-        token = create_access_token(data={"sub": existing_user.name,"role":existing_user.role.value})
+        token = create_access_token(data={"sub": existing_user.name,"role":existing_user.role.value, "id":existing_user["id"]})
         return {"token":token}
         
     raise HTTPException(status_code=401, detail="User or password not correct")
